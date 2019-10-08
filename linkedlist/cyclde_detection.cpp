@@ -1,6 +1,6 @@
 bool has_cycle(SinglyLinkedListNode* h){
  
-    unordered_set<SinglyLinkedListNode*> s; 
+     unordered_set<SinglyLinkedListNode*> s; 
     while (head != NULL) { 
 
         if (s.find(h) != s.end()) {

@@ -1,8 +1,8 @@
 SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
+
     
-    // head 
-    SinglyLinkedListNode *new_head = NULL;
-    SinglyLinkedListNode *sorting;
+  SinglyLinkedListNode *new_head = NULL; // new head of mered list 
+    SinglyLinkedListNode *sorting; // head of a new linkd list
     if (head1 == NULL){
         return head2;
     }
@@ -12,21 +12,22 @@ SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNo
 
     if (head1 && head2){
         if (head1->data < head2->data){
-            sorting = head1;
-            head1 = sorting->next;
+	  sorting = head1; // will point to the node that is less
+	  head1 = sorting->next; // now head1 is incrememtted to next 
         }
         else{
             sorting = head2;
             head2 = sorting->next;
         }
     }
-    new_head = sorting;
-    
+
+    new_head = sorting; // head of new sorted list 
+
     while (head1 && head2){
         if (head1->data < head2->data){
-            sorting->next = head1;
-            sorting = head1;
-            head1 = sorting->next;
+	  sorting->next = head1; // next 
+	  sorting = head1; // now sorting ointer is incrmented 
+	  head1 = sorting->next; // head increments 
         }
         else{
             sorting->next = head2;
