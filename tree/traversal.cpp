@@ -29,4 +29,28 @@ class Node {
 //inorder left cout right
 //postordr left right cout
 
-void 
+void inorder(Node *root){
+
+  if (root == NULL){
+    return;
+  }
+
+  inorder(root->left);
+  cout << root->data << " ";
+  inorder(root->right);
+
+}
+
+
+void postordr(Node *root){
+
+  if (root == NULL){
+    return;
+  }
+
+  postordr(root->left);
+  postordr(root->right);
+  cout << root->data << " ";
+
+
+}
