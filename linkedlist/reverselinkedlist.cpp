@@ -104,9 +104,27 @@ struct LinkedList {
     { 
         head = NULL; 
     } 
-  
-    Node* reverse(Node* head) 
-    { 
+
+  void reverse() 
+  {
+    
+    Node *current = head;
+    Node *prev = NULL, *next = NULL;
+
+      while (current != NULL) {
+
+	next = current->next;
+	current->next = prev;
+
+	prev = current;
+	current = next;
+
+       } 
+
+    head = prev; //ends up being the alst one 
+  }
+  Node* reverse(Node* head) 
+  { 
     if (head == NULL || head->next == NULL){
       return head; 
 
