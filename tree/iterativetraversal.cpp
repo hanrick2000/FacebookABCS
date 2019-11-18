@@ -3,121 +3,95 @@
 #include <unordered_map>
 using namespace std;
 
+//left root right
+// inorder non recurive
+void inorder(Node *root){
 
-unordered_map<node*, int> cnt; //how many times has been executed
-// if 0 then have not started
-// 1 then left
-// 2 then right
-// 3 then process and print data 
+  stack<Node*> s;
+  Node *current = root;
 
-
-void traversalinorder(Node *root){
-
-
-  stack<node*> s;
-  s.push(root);
-
-  Node *curr = s.top();
-
-  if (curr == NULL){ // if empty then continue stack
+  while (current != NULL || !(s.empty())){
+    while (current != NULL){
+      s.push(current);
+      current = current->left;
+    }
+    // probably null at this point 
+    current = s.top();
     s.pop();
-    continue;
+
+    cout << current->data << " ";
+    /* we have visited the node and its 
+       left subtree.  Now, it's right 
+       subtree's turn */
+    current = current->right; 
   }
 
-  // inorder left root right 
-  if (cnt[curr] == 0){
-    s.push(curr->left);
-  }
-
-  else if (cnt[curr] == 1){
-    cout << curr->val << " ";
-  }
-
-  else if (cnt[curr] == 2){
-    s.push(curr->right);
-  }
-
-  else{
-    s.pop();
-  }
-
-  cnt[curr]++;
-
-  
 }
 
 
 
+//preorder root left right
+void preorder(Node *root){
 
-void traversalpreorder(Node *root){
-
-
-  stack<node*> s;
+  if (root == NULL){
+    return;
+  }
+  stack<Node*> s;
   s.push(root);
 
-  Node *curr = s.top();
+  /* Pop all items one by one. Do following for every popped item 
+       a) print it 
+       b) push its right child 
+       c) push its left child 
+  */
 
-  if (curr == NULL){ // if empty then continue stack
-    s.pop();
-    continue;
+  while (!(s.empty())){
+    Node *node = s.top();
+    cout << node->data;
+    node.pop();
+
+    if (node->right){
+      s.push(node->right);
+    }
+    if (node->left){
+      s.push(node->left);
+    }
   }
 
- if (cnt[curr] == 0){
-    cout << curr->val << " ";
-  }
-
- else if (cnt[curr] == 1){
-    s.push(curr->left);
-  }
-
-  else if (cnt[curr] == 2){
-    s.push(curr->right);
-  }
-
-  else{
-    s.pop();
-  }
-
-  cnt[curr]++;
-
-  
 }
 
 
 
+// post order left right root
+//preorder root left right
+void postorderIterative(Node* root){
+	// create an empty stack and push root node
+	stack<Node*> stk;
+	stk.push(root);
 
-void traversalpostorder(Node *root){
+	// create another stack to store post-order traversal
+	stack<int> out;
 
+	// run till stack is not empty
+	while (!stk.empty()){
+		// we pop a node from the stack and push the data to output stack
+		Node *curr = stk.top();
+		stk.pop();
 
-  stack<node*> s;
-  s.push(root);
+		out.push(curr->data);
 
-  Node *curr = s.top();
+		// push left and right child of popped node to the stack
+		if (curr->left)
+			stk.push(curr->left);
 
-  if (curr == NULL){ // if empty then continue stack
-    s.pop();
-    continue;
-  }
+		if (curr->right)
+			stk.push(curr->right);
+	}
 
-
-
-  if (cnt[curr] == 0){
-    s.push(curr->left);
-  }
-
-  else if (cnt[curr] == 1){
-    s.push(curr->right);
-  }
-
-   if (cnt[curr] == 2){
-    cout << curr->val << " ";
-  }
-
-  else{
-    s.pop();
-  }
-
-  cnt[curr]++;
-
-  
+	// print post-order traversal
+	while (!out.empty())
+	{
+		cout << out.top() << " ";
+		out.pop();
+	}
 }
